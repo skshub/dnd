@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>  
+  </head>
+  <body>
+  	<script>
+  		var clickAdd = function(){	
+			$.ajax({
+				url:'/dnd',
+				type:'POST',
+				data:{'userId':'23456',
+						'conv':[
+							{'id':'876543','mute':'false'},
+							{'id':'876544','mute':'true'}
+						]
+					},
+				success: function(data,status,jqXHR){
+					console.log(data.msg);
+				},
+				error: function(jqXHR,status,err){
+					console.log(status);
+				}
+			});
+		};
+		
+		var clickRem = function(id){
+			//alert('Remove User '+id);
+			$.ajax({
+				url:'/dnd/'+id,
+				type: 'DELETE',
+				data:{},
+				success: function(data,status,jqXHR){
+					console.log(id + "'s User data deleted");
+				},
+				error: function(jqXHR,status,err){
+					console.log(status);
+				}
+			});
+			
+		};
+  	</script>
+    <h1>{{ title }}</h1>
+    <p>Welcome to Squared Extension {{ title }}</p>
+    <input type='button' value={{ button_val }} onclick={{button_script}} >
+  </body>
+</html>
